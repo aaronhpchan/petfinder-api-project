@@ -1,0 +1,277 @@
+<%- include('partials/head') %>
+
+<div class="pb-5">
+    <!-- Display image if response object contains image -->
+    <% if (animal.photos.length > 0) { %>
+        <% const photoArray = animal.photos %>
+        <% const photoSplice = [...photoArray] %>
+        <% photoSplice.splice(0, 1) %>       
+        <div id="carouselControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
+            <div class="carousel-inner bg-dark">
+                <div class="carousel-item active">
+                    <img src="<%= animal.photos[0].full %>" class="d-block w-100" alt="image0">
+                </div>
+                <% if (animal.photos.length > 1) { %>
+                    <% for (i = 1; i < photoSplice.length + 1; i++) { %>
+                        <div class="carousel-item">
+                            <img src="<%= animal.photos[i].full %>" class="d-block w-100" alt="image<%= i %>">
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+            <% if (animal.photos.length > 1) { %>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark fs-1" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark fs-1" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            <% } %>
+        </div>
+    <% } %>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 py-5">
+                <div class="light-div card px-3 py-2">
+                    <div class="card-body">
+                        <h1 class="pb-2"><%= animal.name %></h1>
+                        <!-- Check if animal is of mixed breed and displays the breed accordingly -->
+                        <% if (animal.breeds.mixed === true) { %>
+                            <% let mix = /mix/i %>
+                            <% let mixedBreed = /mixed breed/i %>
+                            <% if (animal.breeds.primary !== null && animal.breeds.secondary !== null) { %>
+                                <% if (mix.test(animal.breeds.primary) === true || mix.test(animal.breeds.secondary) === true) { %>
+                                    <% if (mixedBreed.test(animal.breeds.secondary) === true) { %>
+                                        <div class="py-3 border-bottom fw-bold"><%= animal.breeds.primary %> Mix</div>
+                                    <% } else { %>
+                                        <div class="py-3 border-bottom fw-bold"><%= animal.breeds.primary %> & <%= animal.breeds.secondary %></div>
+                                    <% } %>
+                                <% } else { %>
+                                    <div class="py-3 border-bottom fw-bold"><%= animal.breeds.primary %> & <%= animal.breeds.secondary %> Mix</div>
+                                <% } %>
+                            <% } else { %>
+                                <% if (mix.test(animal.breeds.primary) !== true) { %>
+                                    <div class="py-3 border-bottom fw-bold"><%= animal.breeds.primary %> Mix</div>
+                                <% } else { %>
+                                    <div class="py-3 border-bottom fw-bold"><%= animal.breeds.primary %></div>
+                                <% } %>
+                            <% } %>
+                        <% } else { %>
+                            <div class="py-3 border-bottom fw-bold"><%= animal.breeds.primary %></div>
+                        <% } %>                    
+                        <div class="py-3 border-bottom"><%= animal.age %> &bull; <%= animal.gender %> &bull; <%= animal.size %></div>                  
+                    </div>
+
+                    <div class="card-body">
+                        <h2 class="py-2">About</h2>
+                        <!-- Display characteristics if response object contains values from tags -->
+                        <% if (animal.tags.length > 0) { %>
+                            <h3 class="h5 text-uppercase">Characteristics</h3>
+                            <% if (animal.tags.length === 1) { %>
+                                <p><%= animal.tags %></p>
+                            <% } else { %>
+                                <% const tagsSplice = animal.tags.splice(1, (animal.tags.length - 1)) %>
+                                <p>
+                                    <span><%= animal.tags[0] %></span>
+                                    <% for(i = 0; i < tagsSplice.length; i++) { %>
+                                        <span>, <%= tagsSplice[i] %></span>
+                                    <% } %>
+                                </p>                        
+                            <% } %>  
+                        <% } %>
+
+                        <!-- Display colors if response object contains values from colors -->
+                        <% if (animal.colors.primary !== null || animal.colors.secondary !== null || animal.colors.tertiary !== null) { %>
+                            <h3 class="h5 text-uppercase">Color</h3>
+                            <% const colors = Object.values(animal.colors) %>
+                            <% const colorsArray = [] %>
+                            <% for (let color of colors) { %>
+                                <% if (color !== null) { %>
+                                    <% colorsArray.push(color) %>
+                                <% } %>
+                            <% } %>
+                            <% if (colorsArray.length === 1) { %>
+                                <p><%= colorsArray %></p>
+                            <% } else if (colorsArray.length > 1) { %>
+                                <% const colorsSplice = colorsArray.splice(1, (colorsArray.length - 1)) %>
+                                <p>
+                                    <span><%= colorsArray[0] %></span>
+                                    <% for (i = 0; i < colorsSplice.length; i++) { %>
+                                        <span>, <%= colorsSplice[i] %></span>
+                                    <% } %>
+                                </p>
+                            <% } %>
+                        <% } %>
+                        
+                        <!-- Display coat if response object contains values from coat -->
+                        <% if (animal.coat !== null) { %>
+                            <h3 class="h5 text-uppercase">Coat Length</h3>
+                            <p><%= animal.coat %></p>
+                        <% } %>
+                        
+                        <!-- Display each health condition if its value is provided from response object -->
+                        <% const health = { 
+                            'spayed / neutered': Object.values(animal.attributes)[0], 
+                            'house-trained': Object.values(animal.attributes)[1], 
+                            'declawed': Object.values(animal.attributes)[2], 
+                            'special needs': Object.values(animal.attributes)[3], 
+                            'vaccinations up to date': Object.values(animal.attributes)[4] } %> 
+                        <% let healthTrue = {} %> 
+                        <% for (i = 0; i < Object.values(health).length; i++) { %> 
+                            <% if (Object.values(health)[i] === true) { %> 
+                                <% healthTrue[Object.keys(health)[i]] = Object.values(health)[i] %> 
+                            <% } %> 
+                        <% } %>
+                        <% const healthKeys = Object.keys(healthTrue) %>
+                        <% if (healthKeys.length === 1) { %>
+                            <h3 class="h5 text-uppercase">Health</h3>
+                            <p class="text-capitalize"><%= healthKeys %></p>
+                        <% } else if (healthKeys.length > 1) { %>
+                            <% const healthSplice = healthKeys.splice(1, (healthKeys.length - 1)) %>
+                            <h3 class="h5 text-uppercase">Health</h3>
+                            <p class="text-capitalize">
+                                <span><%= healthKeys[0] %></span>
+                                <% for (i = 0; i < healthSplice.length; i++) { %>
+                                    <span>, <%= healthSplice[i] %></span>
+                                <% } %>
+                            </p>
+                        <% } %>
+
+                        <!-- Display each environment condition accordingly if its value is provided from response object -->
+                        <% if (animal.environment.children !== null || animal.environment.dogs !== null || animal.environment.cats !== null) { %>
+                            <% const env = Object.values(animal.environment) %>
+                            <% const envTrue = [] %>
+                            <% const envFalse = [] %>
+                            <% for (i = 0; i < env.length; i++) { %>
+                                <% if (env[i] === true) { %>
+                                    <% envTrue.push(Object.keys(animal.environment)[i]) %>
+                                <% } else if (env[i] === false) { %>
+                                    <% envFalse.push(Object.keys(animal.environment)[i]) %>
+                                <% } %>
+                            <% } %>
+                            <% if (envTrue.length === 1) { %>
+                                <h3 class="h5 text-uppercase">Good in a Home With</h3>
+                                <p class="text-capitalize"><%= envTrue %></p>
+                            <% } else if (envTrue.length > 1) { %>
+                                <% const trueSplice = envTrue.splice(1, (envTrue.length - 1)) %>
+                                <h3 class="h5 text-uppercase">Good in a Home With</h3>
+                                <p class="text-capitalize">
+                                    <span><%= envTrue[0] %></span>
+                                    <% for (i = 0; i < trueSplice.length; i++) { %>
+                                        <span>, <%= trueSplice[i] %></span>
+                                    <% } %>
+                                </p>
+                            <% }  %>
+                            <% if (envFalse.length === 1) { %>
+                                <h3 class="h5 text-uppercase">Prefers a Home Without</h3>
+                                <p class="text-capitalize"><%= envFalse %></p>
+                            <% } else if (envFalse.length > 1) { %>
+                                <% const falseSplice = envFalse.splice(1, (envFalse.length - 1)) %>
+                                <h3 class="h5 text-uppercase">Prefers a Home Without</h3>
+                                <p class="text-capitalize">
+                                    <span><%= envFalse[0] %></span>
+                                    <% for (i = 0; i < falseSplice.length; i++) { %>
+                                        <span>, <%= falseSplice[i] %></span>
+                                    <% } %>
+                                </p>
+                            <% } %>
+                        <% } %>
+
+                        <h3 class="h5 text-uppercase">Location</h3>
+                        <p><%= animal.contact.address.city %>, <%= animal.contact.address.state %> <%= animal.contact.address.postcode %></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-5 pt-lg-5 pb-5 text-center">
+                <div class="url-div card px-3 py-4 mb-5">
+                    <h3>Considering <%= animal.name %> for adoption?</h3>
+                    <button class="py-2 my-3 rounded-pill border-0 org-btn"><a href="<%= animal.url %>" target="_blank" class="text-uppercase text-decoration-none fw-bold">Visit Petfinder to Start Your Enquiry</a></button>
+                </div>
+
+                <div class="light-div card px-3 py-4">
+                    <div class="card-body">
+                        <h2><%= organization.name %></h2>
+                        <p><%= organization.address.city %>, <%= organization.address.state %></p>
+                    </div>
+
+                    <div class="card-body text-start">
+                        <div class="border-bottom">
+                            <p class="fw-bold">Location Address</p>
+                            <!-- Display organization address -->
+                            <% const addressArray = [] %>
+                            <% addressArray.push(organization.address.address1, organization.address.address2) %>
+                            <% for (i = 0; i < addressArray.length; i++) { %>
+                                <% if (addressArray[i] === null) { %>
+                                    <% addressArray.splice(i, 1) %>
+                                <% } %>
+                            <% } %>
+                            <% if (addressArray.length > 0) { %>
+                                <% for (let a of addressArray) { %>
+                                    <p><%= a %></p>
+                                <% } %>
+                            <% } %>
+                            <p><%= organization.address.city %>, <%= organization.address.state %> <%= organization.address.postcode %></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Display each contact info if its value is provided from response object -->
+                    <% if (organization.email !== null || organization.phone !== null || organization.website !== null) { %>
+                        <div class="card-body text-start pt-1">
+                            <div class="border-bottom">
+                                <p class="fw-bold">Contact Info</p>
+                                <% if (organization.email !== null) { %>
+                                    <p><%= organization.email %></p>
+                                <% } %>
+                                <% if (organization.phone !== null) { %>
+                                    <p><%= organization.phone %></p>
+                                <% } %>
+                                <% if (organization.website !== null) { %>
+                                    <p><a href="<%= organization.website %>" target="_blank"><%= organization.website %></a></p>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- Display organization hours if its value is provided from response object -->
+                    <% const hoursArray = Object.values(organization.hours) %>
+                    <% const hoursPush = [] %>
+                    <% for (i = 0; i < hoursArray.length; i++) { %>
+                        <% if (hoursArray[i] !== null) { %>
+                            <% hoursPush.push(hoursArray[i]) %>
+                        <% } %>
+                    <% } %>
+                    <% if (hoursPush.length > 0) { %>
+                        <div class="card-body text-start pt-1">
+                            <div class="border-bottom">
+                                <p class="fw-bold">Hours</p>
+                                <% for (i = 0; i < hoursArray.length; i++) { %>
+                                    <p class="d-flex justify-content-between">
+                                        <span class="text-capitalize"><%= Object.keys(organization.hours)[i] %></span>
+                                        <% if (hoursArray[i] === null) { %>
+                                            <span>-</span>
+                                        <% } else { %>
+                                            <span><%= Object.values(organization.hours)[i] %></span>
+                                        <% } %>
+                                    </p>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% } %>
+                    
+                    <!-- Display distance between the user and the pet on button click -->
+                    <button class="py-2 my-3 rounded-pill text-uppercase fw-bold org-btn" id="getLocation">Calculate Distance</button>
+                    <div class="card-body text-start mt-3" id="distanceDiv">
+                        <p id="showDistance"></p>
+                        <p id="showDuration"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

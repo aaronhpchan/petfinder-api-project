@@ -1,0 +1,53 @@
+<%- include('partials/head') %>
+
+<div>
+    <div class="container text-center py-5">
+        <h1 class="display-5">Connecting vulnerable animals with their <span>forever families</span></h1>
+        <p class="text-uppercase fs-5 slogan">Adopt, Don't Shop</p>
+    </div>
+</div>    
+
+<div>
+    <div class="container py-5">
+        <h2 class="text-center">Pets Available for Adoption</h2>
+        <div class="row px-lg-5">
+            <!-- Display 3 dogs -->
+            <% for (i = 0; i < dogs.length; i++) { %>
+                <div class="col-md-6 col-xl-4 px-5 px-md-3 pt-5 text-center">
+                    <div class="card">
+                        <% if (dogs[i].photos[0] === undefined) { %>
+                            <div class="img-container card-body bg-white">
+                                <a href="<%= dogs[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="noimage"></a>
+                            </div>
+                        <% } else { %>
+                            <div class="img-container card-body bg-white">
+                                <a href="<%= dogs[i].id %>"><img src="<%= dogs[i].photos[0].medium %>" class="bg-white" alt="image<%= dogs[i].id %>"></a>   
+                            </div>
+                        <% } %>
+                        <div class="card-body light-div name-div"><a href="<%= dogs[i].id %>" class="text-decoration-none animal-name"><%= dogs[i].name %></a></div>
+                    </div>
+                </div> 
+            <% } %> 
+            <!-- Display 3 cats -->
+            <% for (i = 0; i < cats.length; i++) { %>
+                <div class="col-md-6 col-xl-4 px-5 px-md-3 pt-5 text-center">
+                    <div class="card">
+                        <% if (cats[i].photos[0] === undefined) { %>
+                            <div class="img-container card-body bg-white">
+                                <a href="<%= cats[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="noimage"></a>
+                            </div>                   
+                        <% } else { %>
+                            <div class="img-container card-body bg-white">
+                                <a href="<%= cats[i].id %>"><img src="<%= cats[i].photos[0].medium %>" class="bg-white" alt="image<%= cats[i].id %>"></a>   
+                            </div>                        
+                        <% } %>
+                        <div class="card-body light-div name-div"><a href="<%= cats[i].id %>" class="text-decoration-none animal-name"><%= cats[i].name %></a></div>
+                    </div>
+                </div> 
+            <% } %>     
+        </div>        
+    </div>
+    <div class="pb-5"></div>
+</div>
+
+<%- include('partials/footer') %>

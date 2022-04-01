@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Mulish', sans-serif;
+    background-color: #f8eee7;
+    color: #490b3d;
+}
+
+.animal-name {
+    font-family: 'Mali', cursive;
+    font-size: 125%;
+}
+
+.name-div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-link, .animal-name, .slogan {
+    font-weight: 500;
+}
+
+.h5 {
+    font-weight: 600;
+}
+
+.brand, .nav-link, h1, h2 {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.nav-link, .brand, a {
+    /* color: #490b3d; */
+    color: #49274a;
+}
+
+h1, .brand:hover, .nav-link:hover, a:hover {
+    color: #bd1e51;
+}
+
+h1.display-5 span {
+    text-decoration: underline wavy #f1b814 7%;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(73, 11, 61, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.org-btn {
+    position: relative;
+    left: 10%;
+    width: 80%;
+}
+
+.img-container, img, #mapContainer {
+    width: 100%;
+}
+
+img {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}
+
+img.d-block {
+    object-fit: cover;
+}
+
+.carousel-item {
+    width: calc(100% / 3);
+    position: relative;
+    left: calc((100% - (100% / 3)) / 2);
+}
+
+.card {
+    border-radius: 12.5px;
+    overflow: hidden;
+    perspective: 10px;
+}
+
+#distanceDiv {
+    display: none;
+}
+
+#distanceDiv span {
+    font-weight: bold;
+}
+
+.light-div, .light-div *, .org-btn {
+    background-color: #f8f3e7;
+}
+
+footer, footer *, .url-div, .url-div > h3, #getLocation:hover {
+    background-color: #49274a;
+    color: #f8eee7;
+}
+
+@media screen and (max-width: 992px) {
+    .carousel-item {
+        width: 40%;
+        left: 30%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .carousel-item {
+        width: 50%;
+        left: 25%;
+    }
+}
+

@@ -1,0 +1,31 @@
+<%- include('partials/head') %>
+
+<div class="pb-5">
+    <div class="container py-5">
+        <h1 class="text-center">Dogs</h1>
+        <div class="row px-lg-5">
+            <!-- Display 6 dogs -->
+            <% for (i = 0; i < dogs.length; i++) { %>
+                <div class="col-md-6 col-xl-4 px-5 px-md-3 pt-5 text-center">
+                    <div class="card">
+                        <% if (dogs[i].photos[0] === undefined) { %>
+                            <div class="img-container card-body bg-white">
+                                <a href="<%= dogs[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="noimage"></a>
+                            </div>                   
+                        <% } else { %>
+                            <div class="img-container card-body bg-white">
+                                <a href="<%= dogs[i].id %>"><img src="<%= dogs[i].photos[0].medium %>" class="bg-white" alt="image<%= dogs[i].id %>"></a>   
+                            </div>                        
+                        <% } %>
+                        <div class="card-body light-div">
+                            <div class="name-div"><a href="<%= dogs[i].id %>" class="text-decoration-none animal-name"><%= dogs[i].name %></a></div>
+                            <div><%= dogs[i].gender %> &bull; <%= dogs[i].age %></div>
+                        </div>
+                    </div>
+                </div> 
+            <% } %>      
+        </div>        
+    </div>
+</div>
+
+<%- include('partials/footer') %>
