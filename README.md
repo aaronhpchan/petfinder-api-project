@@ -1,4 +1,4 @@
-# petfinder-api-project
+# petfriend-api-project
 
 Pet Friend is a web application which locates dogs and cats available for adoption.
 
