@@ -58,6 +58,7 @@ app.get('/:id', (req, res) => {
                     url: `https://maps.googleapis.com/maps/api/geocode/json?address=${orgPostcode}&key=${process.env.API_KEY}`,
                     headers: { 'Authorization': `Bearer ${accessToken}` }    
                 }).then(function (response){
+                    //save the organization's coordinates into the orgLocation array
                     orgLocation.pop();
                     orgLocation.push(response.data.results[0].geometry.location);
                     res.render('animal', pageData);
