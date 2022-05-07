@@ -9,12 +9,12 @@
         <div id="carouselControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
             <div class="carousel-inner bg-dark">
                 <div class="carousel-item active">
-                    <img src="<%= animal.photos[0].full %>" class="d-block w-100" alt="image0">
+                    <img src="<%= animal.photos[0].full %>" class="d-block w-100" alt="<%= animal.name %>, an adoptable <%= animal.species %> in <%= animal.contact.address.city %>, <%= animal.contact.address.state %> - image-1">
                 </div>
                 <% if (animal.photos.length > 1) { %>
                     <% for (i = 1; i < photoSplice.length + 1; i++) { %>
                         <div class="carousel-item">
-                            <img src="<%= animal.photos[i].full %>" class="d-block w-100" alt="image<%= i %>">
+                            <img src="<%= animal.photos[i].full %>" class="d-block w-100" alt="<%= animal.name %>, an adoptable <%= animal.species %> in <%= animal.contact.address.city %>, <%= animal.contact.address.state %> - image-<%= i + 1 %>">
                         </div>
                     <% } %>
                 <% } %>
@@ -190,12 +190,12 @@
             <div class="col-lg-5 pt-lg-5 pb-5 text-center">
                 <div class="url-div card px-3 py-4 mb-5">
                     <h3>Considering <%= animal.name %> for adoption?</h3>
-                    <button class="py-2 my-3 rounded-pill border-0 org-btn"><a href="<%= animal.url %>" target="_blank" class="text-uppercase text-decoration-none fw-bold">Visit Petfinder to Start Your Enquiry</a></button>
+                    <a href="<%= animal.url %>" target="_blank" class="py-2 my-3 text-uppercase text-decoration-none fw-bold org-btn">Visit Petfinder to Start Your Enquiry</a>
                 </div>
 
                 <div class="light-div card px-3 py-4">
                     <div class="card-body">
-                        <h2><%= organization.name %></h2>
+                        <h3 class="h2"><%= organization.name %></h3>
                         <p><%= organization.address.city %>, <%= organization.address.state %></p>
                     </div>
 
@@ -264,7 +264,7 @@
                     <% } %>
                     
                     <!-- Display distance between the user and the pet on button click -->
-                    <button class="py-2 my-3 rounded-pill text-uppercase fw-bold org-btn" id="getLocation">Calculate Distance</button>
+                    <button class="py-2 my-3 text-uppercase fw-bold org-btn" id="getLocation">Calculate Distance</button>
                     <div class="card-body text-start mt-3" id="distanceDiv">
                         <p id="showDistance"></p>
                         <p id="showDuration"></p>

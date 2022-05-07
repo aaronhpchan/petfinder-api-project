@@ -10,11 +10,11 @@
                     <div class="card">
                         <% if (dogs[i].photos[0] === undefined) { %>
                             <div class="img-container card-body bg-white">
-                                <a href="<%= dogs[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="noimage"></a>
+                                <a href="<%= dogs[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="No image available"></a>
                             </div>                   
                         <% } else { %>
                             <div class="img-container card-body bg-white">
-                                <a href="<%= dogs[i].id %>"><img src="<%= dogs[i].photos[0].medium %>" class="bg-white" alt="image<%= dogs[i].id %>"></a>   
+                                <a href="<%= dogs[i].id %>"><img src="<%= dogs[i].photos[0].medium %>" class="bg-white" alt="<%= dogs[i].name %>, an adoptable <%= dogs[i].species %> in <%= dogs[i].contact.address.city %>, <%= dogs[i].contact.address.state %>"></a>   
                             </div>                        
                         <% } %>
                         <div class="card-body light-div">

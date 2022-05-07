@@ -27,11 +27,15 @@ body {
     font-weight: 600;
 }
 
+.logo {
+    width: 1.17em;
+}
+
 .brand, .nav-link, h1, h2 {
     font-family: 'DM Sans', sans-serif;
 }
 
-.nav-link, .brand, a {
+.nav-link, .nav-link:focus, .brand, a {
     color: #49274a;
 }
 
@@ -44,13 +48,18 @@ h1.display-5 span {
 }
 
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(73, 11, 61, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(73, 11, 61, 0.8)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
 }
 
 .org-btn {
     position: relative;
     left: 10%;
     width: 80%;
+    border-radius: 50rem;
 }
 
 .img-container, img, #mapContainer {
@@ -109,3 +118,8 @@ footer, footer *, .url-div, .url-div > h3, #getLocation:hover {
     }
 }
 
+@media screen and (max-width: 576px) {
+    .org-btn {
+        font-size: 80%;
+    }
+}

@@ -8,7 +8,7 @@
 </div>    
 
 <div>
-    <div class="container py-5">
+    <div class="container py-3 py-xs-5">
         <h2 class="text-center">Pets Available for Adoption</h2>
         <div class="row px-lg-5">
             <!-- Display 3 dogs -->
@@ -17,11 +17,11 @@
                     <div class="card">
                         <% if (dogs[i].photos[0] === undefined) { %>
                             <div class="img-container card-body bg-white">
-                                <a href="<%= dogs[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="noimage"></a>
+                                <a href="<%= dogs[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="No image available"></a>
                             </div>
                         <% } else { %>
                             <div class="img-container card-body bg-white">
-                                <a href="<%= dogs[i].id %>"><img src="<%= dogs[i].photos[0].medium %>" class="bg-white" alt="image<%= dogs[i].id %>"></a>   
+                                <a href="<%= dogs[i].id %>"><img src="<%= dogs[i].photos[0].medium %>" class="bg-white" alt="<%= dogs[i].name %>, an adoptable <%= dogs[i].species %> in <%= dogs[i].contact.address.city %>, <%= dogs[i].contact.address.state %>"></a>   
                             </div>
                         <% } %>
                         <div class="card-body light-div name-div"><a href="<%= dogs[i].id %>" class="text-decoration-none animal-name"><%= dogs[i].name %></a></div>
@@ -34,11 +34,11 @@
                     <div class="card">
                         <% if (cats[i].photos[0] === undefined) { %>
                             <div class="img-container card-body bg-white">
-                                <a href="<%= cats[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="noimage"></a>
+                                <a href="<%= cats[i].id %>"><img src="/images/images.jpg" class="bg-white" alt="No image available"></a>
                             </div>                   
                         <% } else { %>
                             <div class="img-container card-body bg-white">
-                                <a href="<%= cats[i].id %>"><img src="<%= cats[i].photos[0].medium %>" class="bg-white" alt="image<%= cats[i].id %>"></a>   
+                                <a href="<%= cats[i].id %>"><img src="<%= cats[i].photos[0].medium %>" class="bg-white" alt="<%= cats[i].name %>, an adoptable <%= cats[i].species %> in <%= cats[i].contact.address.city %>, <%= cats[i].contact.address.state %>"></a>   
                             </div>                        
                         <% } %>
                         <div class="card-body light-div name-div"><a href="<%= cats[i].id %>" class="text-decoration-none animal-name"><%= cats[i].name %></a></div>
