@@ -1,6 +1,9 @@
-# petfriend-api-project
+# Petfriend - API Project
 
 Pet Friend is a web application which locates dogs and cats available for adoption.
+
+## Live Website
+[https://pet-friend.herokuapp.com/](https://pet-friend.herokuapp.com/)
 
 ## Features
 - Home page displays both dogs and cats available for adoption
