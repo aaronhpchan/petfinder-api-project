@@ -1,10 +1,12 @@
-require("dotenv").config();
+require('dotenv').config();
 const axios = require('axios');
 const path = require('path');
 const bodyParser = require('body-parser');
 const express = require('express');
 
 const app = express();
+const port = process.env.PORT || 3000;
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -167,6 +169,6 @@ function getAccessToken() {
     }
 }
 
-app.listen(3000, () => {
-    console.log('listening on http://localhost:3000');
+app.listen(port, () => {
+    console.log(`listening on port ${port}`);
 });
